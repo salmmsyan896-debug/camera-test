@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Photo Test</title>
+</head>
+
+<body>
+
+<h2>Take a Photo</h2>
+
+<p>This page will use your camera only after you give permission.</p>
+
+<video id="camera" width="400" autoplay></video>
+
+<br><br>
+
+<button onclick="takePhoto()">Take Photo</button>
+
+<br><br>
+
+<canvas id="photo" width="400" height="300"></canvas>
+
+<script>
+navigator.mediaDevices.getUserMedia({ video: true })
+    .then(function(stream) {
+        document.getElementById("camera").srcObject = stream;
+    })
+    .catch(function(error) {
+        alert("Camera permission was denied.");
+    });
+
+function takePhoto() {
+    let video = document.getElementById("camera");
+    let canvas = document.getElementById("photo");
+    let context = canvas.getContext("2d");
+
+    context.drawImage(video, 0, 0, 400, 300);
+}
+</script>
+
+</body>
+</html>
